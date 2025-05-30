@@ -1,0 +1,8 @@
+.vscode
+bin/
+*output*
+*.ipynb
+*.png
+*.pdf
+*.o
+*test*

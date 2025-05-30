@@ -1,0 +1,33 @@
+# config
+NMAX        = 20001          # maximum number of particles
+nleft       = 10001           # n of particles in high density region
+x0          = 0             # center of x 
+xmin        = -0.5          # left edge 
+xmax        = 0.5           # right edge 
+ymin        = -0.5          # y range
+ymax        = 0.5           # y range
+zmin        = -0.5          # z range
+zmax        = 0.5           # z range
+
+# density
+rholeft     = 1.0           # left density
+rhoright    = 0.125         # right density 
+
+# pressure
+pleft       = 1.0           # left pressure 
+pright      = 0.1           # right pressure 
+EoS         = 0             # equation of state, 0 for adiabatic, 1 for isothermal        
+gamma       = 1.4           # gamma for adiabatic EoS
+
+# SPH parameters
+hfact       = 2           # smooth range (=hfact*dx), should be less than nghost 
+# nghost      = 6           # boundary particles, 
+
+# viscosity 
+alpha       = 1.0           # first order viscosity
+beta        = 2.0           # second order viscosity
+
+# time
+dt          = 0.005         # dt for each step 
+tmax        = 0.20          # total time    
+dtoutput    = 0.01          # dt for output 
