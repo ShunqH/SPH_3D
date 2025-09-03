@@ -101,9 +101,9 @@ vector<double> Particles::vecr(int ia, int ib){
     if (ia ==ib){
         return vec; 
     }
-    vec[0] = x1[ib]-x1[ia]; 
-    vec[1] = x2[ib]-x2[ia]; 
-    vec[2] = x3[ib]-x3[ia]; 
+    vec[0] = x1[ia]-x1[ib]; 
+    vec[1] = x2[ia]-x2[ib]; 
+    vec[2] = x3[ia]-x3[ib]; 
     return vec; 
 }
 
@@ -112,9 +112,9 @@ vector<double> Particles::vecv(int ia, int ib){
     if (ia ==ib){
         return vec; 
     }
-    vec[0] = vel1[ib]-vel1[ia]; 
-    vec[1] = vel2[ib]-vel2[ia]; 
-    vec[2] = vel3[ib]-vel3[ia]; 
+    vec[0] = vel1[ia]-vel1[ib]; 
+    vec[1] = vel2[ia]-vel2[ib]; 
+    vec[2] = vel3[ia]-vel3[ib]; 
     return vec; 
 }
 

@@ -27,6 +27,7 @@ int main(int argc, char* argv[]){
 
     Setup(pts); 
     Tree tree(pts); 
+    Derivs(pts, tree); 
     
     dt = Config::getInstance().get("dt"); 
     tmax = Config::getInstance().get("tmax"); 

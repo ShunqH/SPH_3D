@@ -1,9 +1,9 @@
 # config
-NMAX        = 20001          # maximum number of particles
-nleft       = 10001           # n of particles in high density region
+NMAX        = 50001          # maximum number of particles
+nleft       = 30           # n of particles in uniform length (1D)
 x0          = 0             # center of x 
-xmin        = -0.5          # left edge 
-xmax        = 0.5           # right edge 
+xmin        = -1.0          # left edge 
+xmax        = 1.0           # right edge 
 ymin        = -0.5          # y range
 ymax        = 0.5           # y range
 zmin        = -0.5          # z range
@@ -28,6 +28,6 @@ alpha       = 1.0           # first order viscosity
 beta        = 2.0           # second order viscosity
 
 # time
-dt          = 0.005         # dt for each step 
-tmax        = 0.20          # total time    
+dt          = 0.01         # dt for each step 
+tmax        = 0.40          # total time    
 dtoutput    = 0.01          # dt for output 

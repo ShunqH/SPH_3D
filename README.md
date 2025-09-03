@@ -1,34 +1,65 @@
-# SPH 1D CPP
+# SPH 3D CPP
 
-This is an SPH code for solving the 3D Sod Shock Tube problem.
+This is an SPH code for solving the 3D problem.
 
-This code is fully rewrited from SPH_CPP(1D) I uploaded before, with an improved data structrue, neighbor particles searching, and more. 
+The code is fully rewritten from SPH_CPP (1D) that I uploaded before, with an improved data structure, neighbor particle searching, and more. 
 
 ## Running the Simulation
 
-1. **Compile the code:**
+1. **Configure your setup:**
+    ```bash
+    python ./configure.py --setup=3Dsod
+    ```
+
+2. **Compile the code:**
     ```bash
     make
     ```
 
-2. **Navigate to the `bin` directory:**
+3. **Navigate to the `bin` directory:**
     ```bash
     cd ./bin
     ```
 
-3. **Run the simulation:**
+4. **Run the simulation:**
     ```bash
-    sod.sph -i ../input/sod.in
+    ./xeno.sph -i ../input/3Dsod.in
     ```
 
 ## Analyzing the Output
 
-You can use the Python script located in `./pyscript` to read the output files.
+You can use the Python scripts located in `./pyscript` to read and analyze the output files.
+
+## Modifying the Input
+
+To change the input parameters, edit:
+```bash
+./input/3Dsod.in
+```
 
 ## Modifying the Setup
 
-To change the setup, edit the file located at:
+To change the setup, edit one of the files in:
 ```bash
-./input/sod.in
+./src/setup_xxx.cpp
+```
 
+You can also create your own setup file by following the examples.
 
+Then modify the dictionary in
+```bash
+./configure.py
+```
+and rerun:
+```bash
+python ./configure.py --setup=xxx
+```
+Or manually edit:
+```bash
+config.mk
+```
+
+Finally, recompile the code:
+```bash
+make
+```
