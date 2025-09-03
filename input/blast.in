@@ -1,7 +1,7 @@
 # config
-NMAX        = 1200001         # maximum number of particles
-Nuniform    = 65            # n of particles in uniform length (1D) 
-r1          = 0.1           # radius of the high energy region    
+NMAX        = 1200001       # maximum number of particles
+Nuniform    = 64            # n of particles in uniform length (1D) 
+r1          = 0.05          # radius of the high energy region    
 r2          = 1.0           # radius of the initial low energy region 
 
 # density
@@ -9,12 +9,12 @@ rho         = 1.0           # uniform density
 
 
 # pressure
-totale      = 100.0           # total energy inject  
+totale      = 1.0           # total energy inject  
 elow        = 1e-7          # lowest energy       
-gamma       = 1.66667           # gamma for adiabatic EoS
+gamma       = 1.66667       # gamma for adiabatic EoS
 
 # SPH parameters
-hfact       = 1.5             # smooth range (=hfact*dx), should be less than nghost 
+hfact       = 1.5           # smooth range (=hfact*dx), should be less than nghost 
 
 # viscosity 
 alpha       = 1.0           # first order viscosity

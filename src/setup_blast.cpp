@@ -60,7 +60,7 @@ void Setup(Particles& pts){
     double ehight = totale/count; 
     for (int i=0; i<pts.endid; i++){
         if (pts.x1[i]*pts.x1[i] + pts.x2[i]*pts.x2[i] + pts.x3[i]*pts.x3[i]<=r1*r1){
-            pts.ene[i] = ehight; 
+            pts.ene[i] = ehight/pts.mas[i]; 
         }
     }
 

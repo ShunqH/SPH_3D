@@ -41,13 +41,53 @@ def read_particles(filename):
 
     return data
 
-pts = read_particles(f"../bin/output_00000")
-select = np.sqrt(pts[:,X2]**2+pts[:,X3]**2)<=0.2
+ROOT = f'../bin/'
+tmax        = 0.40          # total time    
+dtoutput    = 0.01          # dt for output 
+nstep = int(tmax/dtoutput)
+timelist = np.linspace(0, tmax, nstep+1)
+
 plt.figure(figsize=(8,6))
-for frame in range(0,21,4):
-    filename = f"../bin/output_"+str(frame).zfill(5)
+
+for frame in range(0,nstep+1,8):
+    filename = ROOT + f"output_"+str(frame).zfill(5)
     pts = read_particles(filename)
-    plt.scatter(pts[select,X1], pts[select,DEN], s = .05)
-plt.xlim(-1.2, 1.2)
-plt.savefig("figure.png", bbox_inches='tight', dpi=300)
-plt.show()
+    select = np.sqrt(pts[:,X2]**2+pts[:,X3]**2)<=0.4
+    r = np.sqrt(pts[select,X1]**2 + pts[select,X2]**2 + pts[select,X3]**2)
+    plt.scatter(r, pts[select,DEN], s = .05)
+plt.xlim(0, 2.5)
+plt.xlabel("r", fontsize = 15)
+plt.ylabel(r'$\rho$', fontsize = 15)
+plt.savefig("density-r.png", bbox_inches='tight', dpi=300)
+# plt.show()
+plt.close()
+
+def cal_total_e(pts):
+    ie = 0 
+    ke = 0
+    tote = 0
+    for i in range(len(pts[:,X1])):
+        ie = ie + pts[i,MAS]*pts[i, ENE]
+        ke = ke + 0.5*pts[i,MAS]*(pts[i,VEL1]**2 + pts[i,VEL2]**2 + pts[i,VEL3]**2)
+        # print(ke)
+    tote = ie+ke 
+    return ie, ke, tote 
+
+ie = np.zeros(len(timelist))
+ke = np.zeros(len(timelist))
+tote = np.zeros(len(timelist))
+for frame in range(0, nstep+1):
+    filename = ROOT + f"output_"+str(frame).zfill(5)
+    pts = read_particles(filename)
+    ie[frame], ke[frame], tote[frame] = cal_total_e(pts) 
+
+plt.figure(figsize=(8,6))
+plt.plot(timelist, tote, label = 'total e')
+plt.plot(timelist, ie, label = 'ie')
+plt.plot(timelist, ke, label = 'ke')
+plt.legend(fontsize = 15)
+plt.xlabel('t', fontsize = 15)
+plt.ylabel('E', fontsize = 15)
+# plt.show()
+plt.savefig("energy-t.png", bbox_inches='tight', dpi=300)
+plt.close()

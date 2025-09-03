@@ -1,6 +1,6 @@
 # config
-NMAX        = 70001         # maximum number of particles
-Nuniform    = 15            # n of particles in uniform length (1D) in high density region
+NMAX        = 500001        # maximum number of particles
+Nuniform    = 30            # n of particles in uniform length (1D) in high density region
 r1          = 1.0           # radius of the high density region    
 r2          = 3.0           # radius of the initial low density region 
 
@@ -15,7 +15,7 @@ EoS         = 0             # equation of state, 0 for adiabatic, 1 for isotherm
 gamma       = 1.4           # gamma for adiabatic EoS
 
 # SPH parameters
-hfact       = 2           # smooth range (=hfact*dx), should be less than nghost 
+hfact       = 2.0           # smooth range (=hfact*dx), should be less than nghost 
 
 # viscosity 
 alpha       = 1.0           # first order viscosity
