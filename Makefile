@@ -1,9 +1,14 @@
 include config.mk
 
 # define
-CXX = g++
+# CXX = g++
 CXXFLAGS = -Wall -std=c++14
 INCLUDES = -I./include
+
+# if USE_OPENMP=1，add -fopenmp
+ifeq ($(USE_OPENMP),1)
+    CXXFLAGS += -fopenmp
+endif
 
 SRC_DIR = ./src
 OBJ_DIR = ./obj

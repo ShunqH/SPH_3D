@@ -15,6 +15,7 @@ void GetAcc(Particles& pts, Tree& tree){
     const double alpha = Config::getInstance().get("alpha"); 
     const double beta = Config::getInstance().get("beta");
 
+    #pragma omp parallel for schedule(dynamic)
     for (int ia=0; ia<n; ia++){
         double acc1=0, acc2=0, acc3=0, accu=0;
         vector<int> ibs = tree.search(pts.x1[ia], pts.x2[ia], pts.x3[ia], 2*pts.len[ia]); 

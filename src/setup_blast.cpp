@@ -61,7 +61,6 @@ void Setup(Particles& pts){
     for (int i=0; i<pts.endid; i++){
         if (pts.x1[i]*pts.x1[i] + pts.x2[i]*pts.x2[i] + pts.x3[i]*pts.x3[i]<=r1*r1){
             pts.ene[i] = ehight; 
-            cout<<ehight<<endl; 
         }
     }
 

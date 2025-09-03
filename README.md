@@ -11,6 +11,12 @@ The code is fully rewritten from SPH_CPP (1D) that I uploaded before, with an im
     python ./configure.py --setup=3Dsod
     ```
 
+    Add 
+    ```bash
+    --openmp
+    ```
+    to enable openmp
+
 2. **Compile the code:**
     ```bash
     make

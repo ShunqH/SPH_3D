@@ -48,6 +48,7 @@ double w_m6(double q, double h){
 
 void GetDensity(Particles& pts, Tree& tree){
     int n = pts.endid; 
+    #pragma omp parallel for schedule(dynamic)
     for (int ia=0; ia<n; ia++){
         double dens = 0; 
         double h = pts.len[ia]; 
