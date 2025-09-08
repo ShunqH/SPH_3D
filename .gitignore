@@ -1,9 +1,52 @@
 .vscode
 bin/
 *output*
-*.ipynb
+*.dat
+*.txt
 *.png
 *.pdf
+*.jpg
+*.jpeg
 *.o
 *test*
 *mp4
+*.log
+*.tmp
+*.bak
+*.swp
+
+# MacOS
+.DS_Store
+
+# Linux
+*~ 
+
+# Object / binary / libraries
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+*.out
+*.dSYM/
+
+# Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# Coverage / testing
+.coverage
+htmlcov/
+*.cover
+
+# Environment / dependency
+.env
+.venv/
+venv/
+
