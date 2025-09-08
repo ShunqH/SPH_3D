@@ -10,25 +10,40 @@ ifeq ($(USE_OPENMP),1)
     CXXFLAGS += -fopenmp
 endif
 
-SRC_DIR = ./src
+MAIN_DIR = ./src/main
+SETUP_DIR = ./src/setup
 OBJ_DIR = ./obj
 BIN_DIR = ./bin
 TARGET = $(BIN_DIR)/xeno.sph
 
 # obtain source files (.cpp files)
-SRCS = $(SRC_DIR)/main.cpp $(SRC_DIR)/config.cpp $(SRC_DIR)/density.cpp $(SRC_DIR)/evolve.cpp $(SRC_DIR)/force.cpp $(SRC_DIR)/kdtree.cpp $(SRC_DIR)/particles.cpp $(SRC_DIR)/random.cpp $(SRC_DIR)/utils.cpp $(SRC_DIR)/$(SETUP) $(SRC_DIR)/eos.cpp
+SRCS = $(MAIN_DIR)/main.cpp \
+       $(MAIN_DIR)/config.cpp \
+       $(MAIN_DIR)/density.cpp \
+       $(MAIN_DIR)/evolve.cpp \
+       $(MAIN_DIR)/force.cpp \
+       $(MAIN_DIR)/kdtree.cpp \
+       $(MAIN_DIR)/particles.cpp \
+       $(MAIN_DIR)/random.cpp \
+       $(MAIN_DIR)/utils.cpp \
+       $(MAIN_DIR)/eos.cpp \
+       $(SETUP_DIR)/$(SETUP)
 
 # create object files (.o 文件)
-OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+OBJS = $(SRCS:$(MAIN_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+OBJS := $(OBJS:$(SETUP_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # target
 all: $(TARGET)
 
 # compile rules
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(MAIN_DIR)/%.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
-# cbain rule
+$(OBJ_DIR)/%.o: $(SETUP_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+# chain rule
 $(TARGET): $(OBJS) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
 

@@ -47,7 +47,7 @@ To change the input parameters, edit:
 
 To change the setup, edit one of the files in:
 ```bash
-./src/setup_xxx.cpp
+./src/setup/setup_xxx.cpp
 ```
 
 You can also create your own setup file by following the examples.

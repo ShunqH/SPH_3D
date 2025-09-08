@@ -1,7 +1,7 @@
 # config
 NMAX        = 1200001       # maximum number of particles
-Nuniform    = 64            # n of particles in uniform length (1D) 
-r1          = 0.05          # radius of the high energy region    
+Nuniform    = 48            # n of particles in uniform length (1D) 
+r1          = 0.2          # radius of the high energy region    
 r2          = 1.0           # radius of the initial low energy region 
 
 # density
@@ -21,6 +21,6 @@ alpha       = 1.0           # first order viscosity
 beta        = 2.0           # second order viscosity
 
 # time
-dt          = 0.005         # dt for each step 
+dt          = 0.001         # dt for each step 
 tmax        = 0.40          # total time    
 dtoutput    = 0.01          # dt for output 
