@@ -21,7 +21,7 @@ DEN     = 10    # density
 MAS     = 11    # mass 
 LEN     = 12    # smoothing length
 ENE     = 13    # internal energy (u) 
-STA     = 14    # status. 0: alive; 1: dead 
+STA     = 14    # status. 0 or 1: alive; -1: ghost; (more to come)
 
 def read_particles(filename):
     with open(filename, 'rb') as f:
@@ -53,13 +53,10 @@ def kernel(r, h):
     q = r / h
     W = np.zeros_like(q)
     factor = 1.0 / (np.pi * h**3)
-
     mask1 = q < 1.0
     mask2 = (q >= 1.0) & (q < 2.0)
-
     W[mask1] = factor[mask1] * (1 - 1.5*q[mask1]**2 + 0.75*q[mask1]**3)
     W[mask2] = factor[mask2] * 0.25*(2 - q[mask2])**3
-
     return W if len(W) > 1 else W.item()
 
 

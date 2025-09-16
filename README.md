@@ -34,10 +34,10 @@ The code is fully rewritten from SPH_CPP (1D) that I uploaded before, with an im
 ## Analyzing the Output
 
 You can use the Python scripts located in `./pyscript` to read and analyze the output files.
-    ```bash
-    cd pyscript
-    python data.py
-    ```
+```bash
+cd pyscript
+python data.py
+```
 
 ## Modifying the Input
 
