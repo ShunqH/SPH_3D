@@ -22,6 +22,8 @@ setup_dict = {
     "sod": "setup_sod.cpp",
     "3Dsod": "setup_3Dsod.cpp",
     "blast": "setup_blast.cpp",
+    "KH": "setup_KH.cpp",
+    "box": "setup_box.cpp",
 }
 
 if args.setup not in setup_dict:

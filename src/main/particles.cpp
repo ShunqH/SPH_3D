@@ -5,18 +5,28 @@
 #include <stdexcept>
 #include "eos.h"   
 #include "particles.h"
+#include "boundary.h"
 
 using namespace std; 
 
-Particle::Particle()
-    : x1(0), x2(0), x3(0),
-      vel1(0), vel2(0), vel3(0),
-      acc1(0), acc2(0), acc3(0), accu(0),
-      den(0), mas(0), len(0), ene(0)
+Particle::Particle(): 
+    x1(0), x2(0), x3(0),
+    vel1(0), vel2(0), vel3(0),
+    acc1(0), acc2(0), acc3(0), accu(0),
+    den(0), mas(0), len(0), ene(0), status(1)
 {}
 
 // allocate arrarys by nmax input
-Particles::Particles(int nmax): NMAX(nmax), endid(0), eos(nullptr){
+Particles::Particles(int nmax): 
+NMAX(nmax), endid(0), ghostid(0), 
+eos(nullptr), 
+BDX1L(std::make_unique<BoundaryX1L_Free>()),
+BDX1R(std::make_unique<BoundaryX1R_Free>()),
+BDX2L(std::make_unique<BoundaryX2L_Free>()),
+BDX2R(std::make_unique<BoundaryX2R_Free>()),
+BDX3L(std::make_unique<BoundaryX3L_Free>()),
+BDX3R(std::make_unique<BoundaryX3R_Free>())
+{
     x1.resize(nmax); 
     x2.resize(nmax); 
     x3.resize(nmax); 
@@ -35,36 +45,62 @@ Particles::Particles(int nmax): NMAX(nmax), endid(0), eos(nullptr){
 }
 
 // Particles method: add particle, input: class Particle
-void Particles::add_particle(Particle pt){
-    x1[endid] = pt.x1; 
-    x2[endid] = pt.x2; 
-    x3[endid] = pt.x3; 
-    vel1[endid] = pt.vel1;
-    vel2[endid] = pt.vel2; 
-    vel3[endid] = pt.vel3; 
-    acc1[endid] = pt.acc1;
-    acc2[endid] = pt.acc2; 
-    acc3[endid] = pt.acc3; 
-    accu[endid] = pt.accu; 
-    den[endid] = pt.den; 
-    mas[endid] = pt.mas;
-    len[endid] = pt.len; 
-    ene[endid] = pt.ene; 
-    status[endid] = 0; 
-    endid ++; 
-    if (endid >= NMAX) {
-        cerr << "Error: Too many particles! Max = " << NMAX << endl;
+// note that you have to do boundary again if you add an activated particle
+void Particles::add_particle(const Particle& pt){
+    int id = 0; 
+    if (pt.status == 0 || pt.status == 1 || pt.status == 2){
+        id = endid; 
+        if (endid >= NMAX) {
+            cerr << "Error: Too many particles! activated particles = "
+                 << endid 
+                 << ", maximum =" 
+                 << NMAX << endl;
+            return;
+        }
+        endid ++; 
+        ghostid = endid; 
+    }else if (pt.status == -1){
+        id = ghostid; 
+        if (ghostid >= NMAX) {
+            cerr << "Error: Too many particles! activated particles = "
+                 << endid 
+                 << ", ghost particles = "
+                 << ghostid - endid
+                 << ", maximum =" 
+                 << NMAX << endl;
+            return;
+        }
+        ghostid ++; 
+    }else{
+        cerr << "unknown particle types, -1 for ghost, 1 for gas, "
+             << endl;
         return;
     }
+    x1[id] = pt.x1; 
+    x2[id] = pt.x2; 
+    x3[id] = pt.x3; 
+    vel1[id] = pt.vel1;
+    vel2[id] = pt.vel2; 
+    vel3[id] = pt.vel3; 
+    acc1[id] = pt.acc1;
+    acc2[id] = pt.acc2; 
+    acc3[id] = pt.acc3; 
+    accu[id] = pt.accu; 
+    den[id] = pt.den; 
+    mas[id] = pt.mas;
+    len[id] = pt.len; 
+    ene[id] = pt.ene; 
+    status[id] = pt.status; 
+    
     return; 
 }
 
 // Particles method: extract a single Particle form Particles 
 Particle Particles::extract(int index){
     // error if index out of number of particles (endid)
-    if (index < 0 || index >= endid) {
+    if (index < 0 || index >= ghostid) {
         cerr << "Error: extract index out of range (index = " 
-                  << index << ", endid = " << endid << ").\n";
+                  << index << ", ghostid = " << ghostid << ").\n";
         return Particle();  
     }
     Particle pt; 
@@ -83,6 +119,7 @@ Particle Particles::extract(int index){
     pt.mas = mas[index]; 
     pt.len = len[index]; 
     pt.ene = ene[index]; 
+    pt.status = status[index]; 
     return pt; 
 }
 
@@ -119,7 +156,7 @@ vector<double> Particles::vecv(int ia, int ib){
 }
 
 void Particles::check_valid(int i) const {
-    if (i < 0 || i >= endid) 
+    if (i < 0 || i >= ghostid) 
       throw std::out_of_range("Particle index out of range");
   }
 
@@ -139,3 +176,18 @@ double Particles::cs(int i) const{
     return eos->cs(den[i], ene[i]); 
 }
 
+void Particles::clean_ghost(){
+    ghostid = endid; 
+    return; 
+}
+
+void Particles::set_boundary(){
+    clean_ghost(); 
+    BDX1L->SetBoundary(*this); 
+    BDX1R->SetBoundary(*this); 
+    BDX2L->SetBoundary(*this); 
+    BDX2R->SetBoundary(*this); 
+    BDX3L->SetBoundary(*this); 
+    BDX3R->SetBoundary(*this); 
+    return; 
+}

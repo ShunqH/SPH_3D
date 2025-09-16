@@ -10,7 +10,7 @@
 using namespace std;
 
 void WriteParticles(Particles& pts, int step){
-    int n = pts.endid; 
+    int n = pts.ghostid; 
 
     // string Path = "./output/"; 
     ostringstream filename_stream;
@@ -21,7 +21,7 @@ void WriteParticles(Particles& pts, int step){
 
     // write rows and cols
     outFile.write(reinterpret_cast<char*>(&n), sizeof(n));
-
+    
     // write data
     outFile.write(reinterpret_cast<char*>(pts.x1.data()), n*sizeof(double));
     outFile.write(reinterpret_cast<char*>(pts.x2.data()), n*sizeof(double));

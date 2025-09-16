@@ -37,7 +37,6 @@ void GetAcc(Particles& pts, Tree& tree){
                 qa = -0.5 * pts.den[ia] * (alpha*pts.cs(ia) - beta*vdotr) * vdotr; 
                 qb = -0.5 * pts.den[ib] * (alpha*pts.cs(ib) - beta*vdotr) * vdotr; 
             }
-            
             // dv/dt = - Sig{ mb [ (Pa + qa)/ρa^2*div(Wa_ab) 
             //                   + (Pb + qb)/ρb^2*div(Wb_ab) ] }
             wha = wpq_m4(dis_ab, pts.len[ia]); // wha*dx_i/dist(a,b) = div(W)

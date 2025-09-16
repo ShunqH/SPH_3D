@@ -5,12 +5,17 @@
 #include "density.h"
 #include "force.h"
 
+using namespace std;
+
 void Derivs(Particles& pts, Tree& tree){
     const int n_smooth=3; 
+    pts.set_boundary(); 
+    tree = Tree(pts); 
     for (int i=0; i<n_smooth; i++){
         GetDensity(pts, tree); 
         Smoothing(pts); 
     }
+    pts.set_boundary();
     GetAcc(pts, tree); 
     return; 
 }

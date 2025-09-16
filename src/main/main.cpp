@@ -26,9 +26,10 @@ int main(int argc, char* argv[]){
     Particles pts(NMAX); 
 
     Setup(pts); 
+    pts.set_boundary(); 
     Tree tree(pts); 
     Derivs(pts, tree); 
-    
+
     dt = Config::getInstance().get("dt"); 
     tmax = Config::getInstance().get("tmax"); 
     dtoutput = Config::getInstance().get("dtoutput"); 
@@ -41,11 +42,17 @@ int main(int argc, char* argv[]){
         Integral(pts, tree, dt); 
         t = t+dt; 
         step++; 
-        if (step%5 == 0){
-            Tree tree(pts); 
-        }
+        cout<<"step count: "
+            <<step 
+            <<", current gas particles: "
+            <<pts.endid
+            <<", ghost particles: "
+            <<pts.ghostid-pts.endid
+            <<", total: "
+            <<pts.ghostid
+            <<endl; 
         if (step%interval == 0){
-            cout << "\rProgress: t = " << t << "       " << flush;
+            cout << "Progress: t = " << t << "       " << endl;
             WriteParticles(pts, step/interval); 
         }            
     }

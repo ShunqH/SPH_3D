@@ -28,7 +28,7 @@ void Setup(Particles& pts){
     int eos_type = Config::getInstance().get("EoS"); 
     // int nghost = (int)Config::getInstance().get("nghost"); 
 
-    const double gamma = 1.4; 
+    double gamma = 1.4; 
     Particle pt; 
     RandomGenerator ranx_left(xmin, x0);
     RandomGenerator ranx_right(x0, xmax);
@@ -40,6 +40,7 @@ void Setup(Particles& pts){
     {
         case 0:
             eos_parm = Config::getInstance().get("gamma"); 
+            gamma = eos_parm;
             break;
         case 1:
             eos_parm = sqrt(pleft/rholeft); 

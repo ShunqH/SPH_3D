@@ -8,14 +8,13 @@ The code is fully rewritten from SPH_CPP (1D) that I uploaded before, with an im
 
 1. **Configure your setup:**
     ```bash
-    python ./configure.py --setup=3Dsod
+    python ./configure.py --setup=sod
     ```
 
-    Add 
+    To enable OpenMP, add the `--openmp` flag:
     ```bash
-    --openmp
+    python ./configure.py --setup=sod --openmp
     ```
-    to enable openmp
 
 2. **Compile the code:**
     ```bash
@@ -29,18 +28,22 @@ The code is fully rewritten from SPH_CPP (1D) that I uploaded before, with an im
 
 4. **Run the simulation:**
     ```bash
-    ./xeno.sph -i ../input/3Dsod.in
+    ./xeno.sph -i ../input/sod.in
     ```
 
 ## Analyzing the Output
 
 You can use the Python scripts located in `./pyscript` to read and analyze the output files.
+    ```bash
+    cd pyscript
+    python data.py
+    ```
 
 ## Modifying the Input
 
 To change the input parameters, edit:
 ```bash
-./input/3Dsod.in
+./input/sod.in
 ```
 
 ## Modifying the Setup
@@ -50,7 +53,7 @@ To change the setup, edit one of the files in:
 ./src/setup/setup_xxx.cpp
 ```
 
-You can also create your own setup file by following the examples.
+You can also create your own setup file by following the examples. (Check `./src/setup/setup_box.cpp`. )
 
 Then modify the dictionary in
 ```bash

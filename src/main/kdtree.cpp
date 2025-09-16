@@ -8,8 +8,8 @@
 using namespace std;
 
 // Constructor 
-Tree::Tree(Particles& pts):pts(pts){
-    int n = pts.endid;          // n of particles
+Tree::Tree(Particles& pts):pts(&pts){
+    int n = this->pts->ghostid;          // n of particles
 
     // indices of particles
     indices.resize(n);
@@ -51,9 +51,9 @@ void Tree::search_rec(Node* node, const double& x0, const double& y0, const doub
     if (node == nullptr) return;        // end of tree
     int id = node->index;               // id of this node
     // distance from node to target
-    double dist2 = (pts.x1[id]-x0)*(pts.x1[id]-x0) 
-                 + (pts.x2[id]-y0)*(pts.x2[id]-y0) 
-                 + (pts.x3[id]-z0)*(pts.x3[id]-z0);     
+    double dist2 = (pts->x1[id]-x0)*(pts->x1[id]-x0) 
+                 + (pts->x2[id]-y0)*(pts->x2[id]-y0) 
+                 + (pts->x3[id]-z0)*(pts->x3[id]-z0);     
     if (dist2<=r2){                     // this node is inside of range
         results.push_back(id); 
     }
@@ -63,15 +63,15 @@ void Tree::search_rec(Node* node, const double& x0, const double& y0, const doub
     switch (ax) {
         case 0: 
             q = x0; 
-            p = pts.x1[id];
+            p = pts->x1[id];
             break; 
         case 1: 
             q = y0; 
-            p = pts.x2[id];
+            p = pts->x2[id];
             break; 
         case 2: 
             q = z0; 
-            p = pts.x3[id]; 
+            p = pts->x3[id]; 
             break; 
     }
     if ((p-q)*(p-q)<=r2){       // both side 
@@ -87,9 +87,9 @@ void Tree::search_rec(Node* node, const double& x0, const double& y0, const doub
 
 int Tree::partition(int left, int right, int ax){
     auto cmp = [&](int a, int b) {
-        if (ax == 0) return pts.x1[a] < pts.x1[b];
-        if (ax == 1) return pts.x2[a] < pts.x2[b];
-        return pts.x3[a] < pts.x3[b];
+        if (ax == 0) return pts->x1[a] < pts->x1[b];
+        if (ax == 1) return pts->x2[a] < pts->x2[b];
+        return pts->x3[a] < pts->x3[b];
     };
     int mid = left + (right - left) / 2;
     std::nth_element(indices.begin() + left, indices.begin() + mid, 

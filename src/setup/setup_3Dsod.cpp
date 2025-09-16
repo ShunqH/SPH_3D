@@ -22,7 +22,7 @@ void Setup(Particles& pts){
     double hfact = Config::getInstance().get("hfact"); 
     int eos_type = Config::getInstance().get("EoS"); 
 
-    const double gamma = 1.4; 
+    double gamma = 1.4; 
     Particle pt; 
 
     double eos_parm = 0; 
@@ -30,14 +30,15 @@ void Setup(Particles& pts){
     {
         case 0:
             eos_parm = Config::getInstance().get("gamma"); 
-            break; 
-        case 1: 
-            eos_parm = sqrt(phigh/rhohigh); 
-            break; 
-        default: 
+            gamma = eos_parm;
+            break;
+        case 1:
+            eos_parm = sqrt(pleft/rholeft); 
+            break;
+        default:
             throw invalid_argument("unknow equation of state."); 
-            break; 
-    } 
+            break;
+    }
     pts.eos = set_eos(eos_type, eos_parm); 
 
     double dx = 1.0/Nuniform;

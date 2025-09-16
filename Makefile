@@ -27,6 +27,7 @@ SRCS = $(MAIN_DIR)/main.cpp \
        $(MAIN_DIR)/random.cpp \
        $(MAIN_DIR)/utils.cpp \
        $(MAIN_DIR)/eos.cpp \
+       $(MAIN_DIR)/boundary.cpp \
        $(SETUP_DIR)/$(SETUP)
 
 # create object files (.o 文件)

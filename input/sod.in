@@ -1,6 +1,8 @@
 # config
-NMAX        = 50001          # maximum number of particles
-nleft       = 30           # n of particles in uniform length (1D)
+NMAX        = 1000001       # maximum number of particles
+nxunify      = 64           # n of particles in uniform length (1D) for x
+nyunify      = 48           # n of particles in uniform length (1D) for y
+nzunify      = 48           # n of particles in uniform length (1D) for z 
 x0          = 0             # center of x 
 xmin        = -1.0          # left edge 
 xmax        = 1.0           # right edge 
@@ -8,6 +10,23 @@ ymin        = -0.5          # y range
 ymax        = 0.5           # y range
 zmin        = -0.5          # z range
 zmax        = 0.5           # z range
+
+# boundary conditions
+X1BDLeft    = 2             # boundary condition for xmin, 0:free, 1:periodic, 2: static/reflect
+dx1l        = 0.10          # thinkness of the boundary (ghost) layer
+X1BDRight   = 2             # boundary condition for xmax, 0:free, 1:periodic, 2: static/reflect
+dx1r        = 0.10          # thinkness of the boundary (ghost) layer
+
+X2BDLeft    = 1             # boundary condition for ymin, 0:free, 1:periodic, 2: static/reflect
+dx2l        = 0.12          # thinkness of the boundary (ghost) layer
+X2BDRight   = 1             # boundary condition for ymax, 0:free, 1:periodic, 2: static/reflect
+dx2r        = 0.12          # thinkness of the boundary (ghost) layer
+
+X3BDLeft    = 1             # boundary condition for zmin, 0:free, 1:periodic, 2: static/reflect
+dx3l        = 0.12          # thinkness of the boundary (ghost) layer
+X3BDRight   = 1             # boundary condition for zmax, 0:free, 1:periodic, 2: static/reflect
+dx3r        = 0.12          # thinkness of the boundary (ghost) layer
+
 
 # density
 rholeft     = 1.0           # left density
@@ -20,14 +39,13 @@ EoS         = 0             # equation of state, 0 for adiabatic, 1 for isotherm
 gamma       = 1.4           # gamma for adiabatic EoS
 
 # SPH parameters
-hfact       = 2           # smooth range (=hfact*dx), should be less than nghost 
-# nghost      = 6           # boundary particles, 
+hfact       = 1.5           # smooth range (=hfact*dx), should be less than nghost 
 
 # viscosity 
 alpha       = 1.0           # first order viscosity
 beta        = 2.0           # second order viscosity
 
 # time
-dt          = 0.01         # dt for each step 
-tmax        = 0.40          # total time    
+dt          = 0.005         # dt for each step 
+tmax        = 0.50          # total time    
 dtoutput    = 0.01          # dt for output 

@@ -1,0 +1,52 @@
+# config
+NMAX        = 1000001       # maximum number of particles
+nx          = 128            # n of particles in uniform length (1D)
+ny          = 148            # n of particles in uniform length (1D)
+nz          = 24            # n of particles in uniform length (1D)
+xmin        = -0.5          # left edge 
+xmax        = 0.5           # right edge 
+ymin        = -0.5          # y range
+ymax        = 0.5           # y range
+zmin        = -0.1          # z range
+zmax        = 0.1           # z range
+
+# boundary conditions
+X1BDLeft    = 1             # boundary condition for xmin, 0:free, 1:periodic
+dx1l        = 0.02           # thinkness of the boundary (ghost) layer
+X1BDRight   = 1             # boundary condition for xmax, 0:free, 1:periodic
+dx1r        = 0.02           # thinkness of the boundary (ghost) layer
+
+X2BDLeft    = 1             # boundary condition for ymin, 0:free, 1:periodic
+dx2l        = 0.02           # thinkness of the boundary (ghost) layer
+X2BDRight   = 1             # boundary condition for ymax, 0:free, 1:periodic
+dx2r        = 0.02           # thinkness of the boundary (ghost) layer
+
+X3BDLeft    = 1             # boundary condition for zmin, 0:free, 1:periodic
+dx3l        = 0.02           # thinkness of the boundary (ghost) layer
+X3BDRight   = 1             # boundary condition for zmax, 0:free, 1:periodic
+dx3r        = 0.02           # thinkness of the boundary (ghost) layer
+
+# velocity 
+v1          = -0.5           # velocity 1
+v2          = 0.5          # velocity 2
+
+# density
+rho1         = 1.0           # density
+rho2         = 2.0           # density
+
+# pressure
+p           = 2.5           # pressure 
+EoS         = 0             # equation of state, 0 for adiabatic, 1 for isothermal        
+gamma       = 1.66667       # gamma for adiabatic EoS
+
+# SPH parameters
+hfact       = 1.5           # smooth range (=hfact*dx), should be less than nghost 
+
+# viscosity 
+alpha       = 1.0           # first order viscosity
+beta        = 2.0           # second order viscosity
+
+# time
+dt          = 0.002         # dt for each step 
+tmax        = 2.00          # total time    
+dtoutput    = 0.01          # dt for output 

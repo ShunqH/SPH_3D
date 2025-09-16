@@ -14,7 +14,7 @@ public:
 
 private:
     std::vector<int> indices; 
-    Particles& pts;
+    Particles* pts;
     // node structure
     struct Node{
         int index;      // index of the particle

@@ -1,12 +1,37 @@
 # config
-NMAX        = 1200001       # maximum number of particles
-Nuniform    = 48            # n of particles in uniform length (1D) 
-r1          = 0.2          # radius of the high energy region    
-r2          = 1.0           # radius of the initial low energy region 
+# box
+NMAX        = 1000001       # maximum number of particles
+nxunify      = 64           # n of particles in uniform length (1D) for x
+nyunify      = 64           # n of particles in uniform length (1D) for y
+nzunify      = 64           # n of particles in uniform length (1D) for z 
+xmin        = -0.5          # left edge 
+xmax        = 0.5           # right edge 
+ymin        = -0.5          # y range
+ymax        = 0.5           # y range
+zmin        = -0.5          # z range
+zmax        = 0.5           # z range
+
+r1          = 0.05
+
+# boundary conditions
+X1BDLeft    = 0             # boundary condition for xmin, 0:free, 1:periodic
+dx1l        = 0.05           # thinkness of the boundary (ghost) layer
+X1BDRight   = 0             # boundary condition for xmax, 0:free, 1:periodic
+dx1r        = 0.05           # thinkness of the boundary (ghost) layer
+
+X2BDLeft    = 0             # boundary condition for ymin, 0:free, 1:periodic
+dx2l        = 0.05           # thinkness of the boundary (ghost) layer
+X2BDRight   = 0             # boundary condition for ymax, 0:free, 1:periodic
+dx2r        = 0.05           # thinkness of the boundary (ghost) layer
+
+X3BDLeft    = 0             # boundary condition for zmin, 0:free, 1:periodic
+dx3l        = 0.05           # thinkness of the boundary (ghost) layer
+X3BDRight   = 0             # boundary condition for zmax, 0:free, 1:periodic
+dx3r        = 0.05           # thinkness of the boundary (ghost) layer
+
 
 # density
 rho         = 1.0           # uniform density
-
 
 # pressure
 totale      = 1.0           # total energy inject  
@@ -21,6 +46,6 @@ alpha       = 1.0           # first order viscosity
 beta        = 2.0           # second order viscosity
 
 # time
-dt          = 0.001         # dt for each step 
-tmax        = 0.40          # total time    
-dtoutput    = 0.01          # dt for output 
+dt          = 0.0001         # dt for each step 
+tmax        = 0.10          # total time    
+dtoutput    = 0.0001          # dt for output 

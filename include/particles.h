@@ -5,6 +5,7 @@
 #include <cmath>
 #include <memory> 
 #include "eos.h" 
+#include "boundary.h"
 
 // a single particle; 
 class Particle{
@@ -16,6 +17,7 @@ public:
     double mas; 
     double len; 
     double ene; 
+    int status; 
 
     Particle(); 
 };
@@ -32,12 +34,19 @@ public:
     std::vector<double> len;                    // smooth length (size) of the particle
     std::vector<double> ene;                    // energy 
     std::vector<int> status;                    // status: 0 alive, 1 dead
-    int endid;                                  // the number of current particles (dead included)
+    int endid;                                  // the number of activated particles (dead included)
+    int ghostid; 
     std::shared_ptr<EoS> eos = nullptr;
+    std::shared_ptr<Boundary> BDX1L = nullptr;
+    std::shared_ptr<Boundary> BDX1R = nullptr;
+    std::shared_ptr<Boundary> BDX2L = nullptr;
+    std::shared_ptr<Boundary> BDX2R = nullptr;
+    std::shared_ptr<Boundary> BDX3L = nullptr;
+    std::shared_ptr<Boundary> BDX3R = nullptr;
 
     Particles(int nmax); 
 
-    void add_particle(Particle pt);
+    void add_particle(const Particle& pt);
 
     Particle extract(int index);
 
@@ -52,6 +61,8 @@ public:
     double pres(int i) const;                 
     double cs(int i) const;
 
+    void clean_ghost(); 
+    void set_boundary(); 
     
 
 private: 
