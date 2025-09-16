@@ -14,6 +14,11 @@ bin/
 *.tmp
 *.bak
 *.swp
+*.zip
+*.rar
+*.tar
+*.tar.gz
+*.gz 
 
 # MacOS
 .DS_Store
