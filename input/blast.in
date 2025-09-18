@@ -1,9 +1,7 @@
 # config
 # box
-NMAX        = 1000001       # maximum number of particles
-nxunify      = 64           # n of particles in uniform length (1D) for x
-nyunify      = 64           # n of particles in uniform length (1D) for y
-nzunify      = 64           # n of particles in uniform length (1D) for z 
+NMAX        = 1100001       # maximum number of particles
+N           = 1000000        # total particles
 xmin        = -0.5          # left edge 
 xmax        = 0.5           # right edge 
 ymin        = -0.5          # y range
